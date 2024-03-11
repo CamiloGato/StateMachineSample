@@ -14,7 +14,10 @@
             Strategy.SetUp();
         }
 
-        public virtual void ExitState() {}
+        public virtual void ExitState()
+        {
+            Strategy.Dispose();
+        }
 
         public virtual void UpdateState()
         {

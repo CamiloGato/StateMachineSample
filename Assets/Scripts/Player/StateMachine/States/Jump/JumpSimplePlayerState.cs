@@ -10,6 +10,11 @@ namespace Player.StateMachine.States.Jump
             Debug.Log("El pepe SetUp");
         }
 
+        public override void Dispose()
+        {
+            Debug.Log("El pepe Dispose");
+        }
+
         public override void OnUpdate()
         {
             Debug.Log("El pepe Update");

@@ -10,6 +10,11 @@ namespace Player.StateMachine.States.Walk
             Debug.Log("Nia ich ni san Nia SetUp");
         }
 
+        public override void Dispose()
+        {
+            Debug.Log("Nia ich ni san Nia Dispose");
+        }
+
         public override void OnUpdate()
         {
             Debug.Log("Nia ich ni san Nia Update");

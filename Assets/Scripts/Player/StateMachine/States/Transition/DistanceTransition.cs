@@ -9,7 +9,6 @@ namespace Player.StateMachine.States.Transition
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var next = other.gameObject;
             player.onStateChange.Invoke(state);
         }
     }
