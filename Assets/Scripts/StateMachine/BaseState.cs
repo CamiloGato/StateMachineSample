@@ -2,36 +2,31 @@
 {
     public abstract class BaseState
     {
-        protected readonly IStateStrategy Strategy;
+        private readonly IStateStrategy _strategy;
 
         protected BaseState(IStateStrategy strategy)
         {
-            Strategy = strategy;
+            _strategy = strategy;
         }
 
         public virtual void EnterState()
         {
-            Strategy.SetUp();
+            _strategy.SetUp();
         }
 
         public virtual void ExitState()
         {
-            Strategy.Dispose();
+            _strategy.Dispose();
         }
 
         public virtual void UpdateState()
         {
-            Strategy.OnUpdate();
+            _strategy.OnUpdate();
         }
 
         public virtual void FixedUpdateState()
         {
-            Strategy.OnFixedUpdate();
-        }
-
-        public virtual void AnimUpdateState()
-        {
-            Strategy.OnAnimUpdate();
+            _strategy.OnFixedUpdate();
         }
     }
 }

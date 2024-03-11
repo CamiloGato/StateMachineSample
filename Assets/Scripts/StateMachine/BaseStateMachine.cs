@@ -3,11 +3,12 @@
 namespace StateMachine
 {
     public abstract class BaseStateMachine<TEnum, TState>
-        where TEnum : Enum where TState : BaseState
+        where TEnum : Enum
+        where TState : BaseState
     {
         public TEnum State => Transition.GetEnum(CurrentState);
-        
-        protected TState CurrentState { get; set; }
+
+        private TState CurrentState { get; set; }
         protected abstract TransitionStateBuilder<TEnum, TState> Transition { get; set; }
 
         public void Update()
@@ -18,11 +19,6 @@ namespace StateMachine
         public void FixedUpdate()
         {
             CurrentState.FixedUpdateState();
-        }
-
-        public void AnimationEvent()
-        {
-            CurrentState.AnimUpdateState();
         }
         
         protected abstract void Initialize();

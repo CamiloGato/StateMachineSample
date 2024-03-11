@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace StateMachine
 {
     public class TransitionStateBuilder<TEnum, TState>
-        where TEnum : Enum where TState : BaseState
+        where TEnum : Enum
+        where TState : BaseState
     {
         private readonly Dictionary<TEnum, TState> _transitionsStates = new Dictionary<TEnum, TState>();
         private TState _defaultState;
@@ -23,6 +24,10 @@ namespace StateMachine
 
         public TransitionStateBuilder<TEnum, TState> Build()
         {
+            if (_defaultState == null)
+            {
+                throw new MissingDefaultStateException();
+            }
             return this;
         }
 
@@ -33,7 +38,7 @@ namespace StateMachine
                 return state;
             }
 
-            throw new Exception($"No States in {@enum}");
+            throw new MissingStateException(@enum);
         }
 
         public TState GetTransitionDefault()

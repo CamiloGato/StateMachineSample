@@ -17,17 +17,10 @@ namespace Player.StateMachine.States.Walk
 
         public override void OnUpdate()
         {
-            Debug.Log("Nia ich ni san Nia Update");
         }
 
         public override void OnFixedUpdate()
         {
-            Debug.Log("Nia ich ni san Nia Fixed Update");
-        }
-
-        public override void OnAnimUpdate()
-        {
-            Debug.Log("Nia ich ni san Nia Anim Update");
         }
     }
 }

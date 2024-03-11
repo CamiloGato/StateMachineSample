@@ -11,7 +11,5 @@ namespace Player.StateMachine.States.Walk
         public virtual void OnUpdate() {}
 
         public virtual void OnFixedUpdate() {}
-
-        public virtual void OnAnimUpdate() {}
     }
 }

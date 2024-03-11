@@ -17,17 +17,10 @@ namespace Player.StateMachine.States.Jump
 
         public override void OnUpdate()
         {
-            Debug.Log("El pepe Update");
         }
 
         public override void OnFixedUpdate()
         {
-            Debug.Log("El pepe FixedUpdate");
-        }
-
-        public override void OnAnimUpdate()
-        {
-            Debug.Log("El pepe Anim Update");
         }
     }
 }

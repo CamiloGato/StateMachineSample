@@ -6,6 +6,5 @@
         public void Dispose();
         public void OnUpdate();
         public void OnFixedUpdate();
-        public void OnAnimUpdate();
     }
 }
