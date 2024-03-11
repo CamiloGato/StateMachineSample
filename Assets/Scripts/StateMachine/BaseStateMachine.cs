@@ -2,19 +2,48 @@
 
 namespace StateMachine
 {
-    public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where TState : BaseState
+    public abstract class BaseStateMachine<TEnum, TState>
+        where TEnum : Enum where TState : BaseState
     {
-        protected BaseState CurrentState { get; set; }
-        public abstract TransitionStateBuilder<TEnum, TState> Transition { get; set; }
+        public TEnum State => Transition.GetEnum(CurrentState);
         
-        public abstract void Initialize();
-        public abstract void Close();
+        protected TState CurrentState { get; set; }
+        protected abstract TransitionStateBuilder<TEnum, TState> Transition { get; set; }
+
+        public void Update()
+        {
+            CurrentState.UpdateState();
+        }
+
+        public void FixedUpdate()
+        {
+            CurrentState.FixedUpdateState();
+        }
+
+        public void AnimationEvent()
+        {
+            CurrentState.AnimUpdateState();
+        }
+        
+        protected abstract void Initialize();
+        protected abstract void Close();
 
         public virtual void TransitionTo(TEnum stateEnum)
         {
-            CurrentState.ExitState();
+            CurrentState?.ExitState();
             CurrentState = Transition.GetState(stateEnum);
-            CurrentState.EnterState();
+            CurrentState?.EnterState();
+        }
+
+        public virtual void SetUp()
+        {
+            Initialize();
+            CurrentState = Transition.GetTransitionDefault();
+        }
+
+        public virtual void Exit()
+        {
+            Close();
         }
         
     }
