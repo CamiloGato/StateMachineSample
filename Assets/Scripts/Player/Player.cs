@@ -1,53 +1,39 @@
 ﻿using System;
-using Player.StateMachine;
-using Player.StateMachine.States;
-using Player.StateMachine.States.Jump;
-using Player.StateMachine.States.Walk;
+using StateMachine;
 using UnityEngine;
 
 namespace Player
 {
     public class Player : MonoBehaviour
     {
-        public Action<EnumPlayerState> onStateChange;
-        
-        [Header("Player States Requirements")]
-        [SerializeField] private WalkBasePlayerState walkStrategy;
-        [SerializeField] private JumpBasePlayerState jumpStrategy;
-        
-        private PlayerStateMachine _playerStateMachine;
+        private StateMachineStates _stateMachine;
 
         private void Awake()
         {
-            onStateChange += ChangeState;
-            
-            WalkBasePlayerState walkState = Instantiate(walkStrategy);
-            JumpBasePlayerState jumpState = Instantiate(jumpStrategy);
-            
-            _playerStateMachine = new PlayerStateMachine(walkState, jumpState);
-            _playerStateMachine.SetUp();
-        }
-
-        private void ChangeState(EnumPlayerState state)
-        {
-            _playerStateMachine.TransitionTo(state);
+            _stateMachine = new StateMachineStates( new WalkState() );
         }
 
         private void Update()
         {
-            _playerStateMachine.Update();
+            _stateMachine.Update();
+            // if (Input.GetKeyDown(KeyCode.A))
+            // {
+            //     _stateMachine.TransitionTo( EnumStates.Attack );
+            // }
+            // else if (Input.GetKeyDown(KeyCode.W))
+            // {
+            //     _stateMachine.TransitionTo(EnumStates.Walk);
+            // }
+            // else if (Input.GetKeyDown(KeyCode.S))
+            // {
+            //     _stateMachine.TransitionTo(EnumStates.Idle);
+            // }
+
         }
 
         private void FixedUpdate()
         {
-            _playerStateMachine.FixedUpdate();
-        }
-
-        private void OnDestroy()
-        {
-            onStateChange -= ChangeState;
-            
-            _playerStateMachine.Exit();
+            _stateMachine.FixedUpdate();
         }
     }
 }

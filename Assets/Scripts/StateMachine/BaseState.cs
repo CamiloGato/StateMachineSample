@@ -1,32 +1,35 @@
-﻿namespace StateMachine
+﻿using UnityEngine;
+
+namespace StateMachine
 {
     public abstract class BaseState
     {
-        private readonly IStateStrategy _strategy;
+        public abstract void Enter();
+        public abstract void Update();
+        public abstract void FixedUpdate();
+        public abstract void Exit();
+    }
 
-        protected BaseState(IStateStrategy strategy)
+    class WalkState : BaseState
+    {
+        public override void Enter()
         {
-            _strategy = strategy;
+            Debug.Log("Entro en WalkState");
         }
 
-        public virtual void EnterState()
+        public override void Update()
         {
-            _strategy.SetUp();
+            Debug.Log("Update en WalkState");
         }
 
-        public virtual void ExitState()
+        public override void FixedUpdate()
         {
-            _strategy.Dispose();
+            Debug.Log("FixedUpdate en WalkState");
         }
 
-        public virtual void UpdateState()
+        public override void Exit()
         {
-            _strategy.OnUpdate();
-        }
-
-        public virtual void FixedUpdateState()
-        {
-            _strategy.OnFixedUpdate();
+            Debug.Log("Salio de WalkState");
         }
     }
 }
