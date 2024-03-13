@@ -4,18 +4,27 @@ using UnityEngine;
 namespace StateMachine
 {
     
-    public class StateMachineStates
+    public abstract class BaseStateMachine <TEnum, TState>
+        where TEnum : Enum
+        where TState : BaseState
     {
-        private BaseState _currentState;
+        private TState _currentState;
+        private StateContainer<TEnum, TState> _stateContainer;
 
-        public StateMachineStates(BaseState currentState)
+        public void Initialize()
         {
-            _currentState = currentState;
+            _stateContainer = CreateContainter();
+            _currentState = _stateContainer.GetDefaultState();
+            _currentState.Enter();
         }
 
-        public void TransitionTo(BaseState newState)
+        public abstract StateContainer<TEnum, TState> CreateContainter();
+
+        public void TransitionTo(TEnum newState)
         {
-            _currentState = newState;
+            _currentState.Exit();
+            _currentState = _stateContainer.GetStateByEnum(newState);
+            _currentState.Enter();
         }
 
         public void Update()
