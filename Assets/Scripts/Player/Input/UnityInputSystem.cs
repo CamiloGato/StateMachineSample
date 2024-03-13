@@ -18,12 +18,12 @@ namespace Player.Input
 
         public bool Attack()
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.K);
+            return UnityEngine.Input.GetKeyDown(KeyCode.Q);
         }
 
         public bool Skill()
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.L);
+            return UnityEngine.Input.GetKeyDown(KeyCode.E);
         }
     }
 }
