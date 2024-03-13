@@ -3,18 +3,6 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    [Serializable]
-    public enum EnumStates
-    {
-        Idle,
-        Attack,
-        Walk
-    }
-
-    public class StateMachinEnums
-    {
-        
-    }
     
     public class StateMachineStates
     {

@@ -19,12 +19,12 @@ namespace StateMachine
 
         public override void Update()
         {
-            Debug.Log("Update en WalkState");
+            
         }
 
         public override void FixedUpdate()
         {
-            Debug.Log("FixedUpdate en WalkState");
+            
         }
 
         public override void Exit()
