@@ -13,12 +13,14 @@ namespace Player
         Walk
     }
 
-    public class PlayerStateMachine : BaseStateMachine<PlayerStatesEnum, BaseState>
+
+
+    public class PlayerStateMachine : BaseStateMachine<PlayerStatesEnum>
     {
-        public override StateContainer<PlayerStatesEnum, BaseState> CreateContainter()
+        protected override StateContainer<PlayerStatesEnum> CreateContainter()
         {
             var container = 
-                new StateContainer<PlayerStatesEnum, BaseState>()
+                new StateContainer<PlayerStatesEnum>()
                     .AddState(PlayerStatesEnum.Idle, new IdleState())
                     .AddState(PlayerStatesEnum.Jump, new JumpState())
                     .AddState(PlayerStatesEnum.Walk, new WalkState())

@@ -1,40 +1,38 @@
 ﻿using System;
-using UnityEngine;
 
 namespace StateMachine
 {
     
-    public abstract class BaseStateMachine <TEnum, TState>
+    public abstract class BaseStateMachine <TEnum>
         where TEnum : Enum
-        where TState : BaseState
     {
-        private TState _currentState;
-        private StateContainer<TEnum, TState> _stateContainer;
+        private IState _currentState;
+        private StateContainer<TEnum> _stateContainer;
+        
+        protected abstract StateContainer<TEnum> CreateContainter();
 
         public void Initialize()
         {
             _stateContainer = CreateContainter();
             _currentState = _stateContainer.GetDefaultState();
-            _currentState.Enter();
+            _currentState.EnterState();
         }
-
-        public abstract StateContainer<TEnum, TState> CreateContainter();
 
         public void TransitionTo(TEnum newState)
         {
-            _currentState.Exit();
+            _currentState.ExitState();
             _currentState = _stateContainer.GetStateByEnum(newState);
-            _currentState.Enter();
+            _currentState.EnterState();
         }
 
         public void Update()
         {
-            _currentState.Update();
+            _currentState.UpdateState();
         }
 
         public void FixedUpdate()
         {
-            _currentState.FixedUpdate();
+            _currentState.FixedUpdateState();
         }
         
     }
