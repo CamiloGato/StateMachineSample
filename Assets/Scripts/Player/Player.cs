@@ -1,65 +1,38 @@
-﻿using System;
-using Player.Input;
-using StateMachine;
+﻿using Player.PlayerInput;
+using Player.StateMachine;
 using UnityEngine;
 
 namespace Player
 {
-    [Serializable]
-    public enum PlayerStatesEnum
-    {
-        Idle,
-        Jump,
-        Walk
-    }
-
-
-
-    public class PlayerStateMachine : BaseStateMachine<PlayerStatesEnum>
-    {
-        protected override StateContainer<PlayerStatesEnum> CreateContainter()
-        {
-            var container = 
-                new StateContainer<PlayerStatesEnum>()
-                    .AddState(PlayerStatesEnum.Idle, new IdleState())
-                    .AddState(PlayerStatesEnum.Jump, new JumpState())
-                    .AddState(PlayerStatesEnum.Walk, new WalkState())
-                    .AddDefaultState(PlayerStatesEnum.Idle);
-            
-            return container;
-        }
-    }
-    
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
+        [SerializeField] private float velocity;
+        [SerializeField] private float force;
+        
+        private Rigidbody2D _rigidBody2D;
         private IInputSystem _inputSystem;
         private PlayerStateMachine _stateMachine;
 
         private void Awake()
         {
-            _stateMachine = new PlayerStateMachine();
+            _rigidBody2D = GetComponent<Rigidbody2D>();
+            _inputSystem = new UnityInputSystem("Horizontal");
+            
+            _stateMachine = new PlayerStateMachine()
+            {
+                RigidBody2D = _rigidBody2D,
+                Force = force,
+                Velocity = velocity,
+                InputSystem = _inputSystem
+            };
             _stateMachine.Initialize();
             
-            _inputSystem = new UnityInputSystem("Horizontal");
         }
 
         private void Update()
         {
             _stateMachine.Update();
-            
-            if (UnityEngine.Input.GetKeyDown(KeyCode.W))
-            {
-                _stateMachine.TransitionTo( PlayerStatesEnum.Idle );
-            }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.S))
-            {
-                _stateMachine.TransitionTo( PlayerStatesEnum.Jump );
-            }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.D))
-            {
-                _stateMachine.TransitionTo( PlayerStatesEnum.Walk );
-            }
-
         }
 
         private void FixedUpdate()

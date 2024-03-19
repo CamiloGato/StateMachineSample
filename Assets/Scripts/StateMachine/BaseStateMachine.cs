@@ -9,11 +9,11 @@ namespace StateMachine
         private IState _currentState;
         private StateContainer<TEnum> _stateContainer;
         
-        protected abstract StateContainer<TEnum> CreateContainter();
+        protected abstract StateContainer<TEnum> CreateStateContainer();
 
         public void Initialize()
         {
-            _stateContainer = CreateContainter();
+            _stateContainer = CreateStateContainer();
             _currentState = _stateContainer.GetDefaultState();
             _currentState.EnterState();
         }
@@ -34,6 +34,5 @@ namespace StateMachine
         {
             _currentState.FixedUpdateState();
         }
-        
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Player.Input
+﻿namespace Player.PlayerInput
 {
     public interface IInputSystem
     {
