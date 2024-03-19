@@ -1,4 +1,5 @@
-﻿using Player.PlayerInput;
+﻿using System;
+using Player.PlayerInput;
 using Player.StateMachine;
 using UnityEngine;
 
@@ -32,12 +33,18 @@ namespace Player
 
         private void Update()
         {
+            print(GameManager.Instance.CantidadVelocidad);
             _stateMachine.Update();
         }
 
         private void FixedUpdate()
         {
             _stateMachine.FixedUpdate();
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OtraCosaEstatica.GameOver();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Player.StateMachine
         
         protected override StateContainer<PlayerStatesEnum> CreateStateContainer()
         {
+            GameManager.OtraCosaEstatica.GameOver();
             StateContainer<PlayerStatesEnum> container = 
                 new StateContainer<PlayerStatesEnum>()
                     .AddState(
