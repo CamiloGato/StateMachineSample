@@ -33,7 +33,6 @@ namespace Player
 
         private void Update()
         {
-            print(GameManager.Instance.CantidadVelocidad);
             _stateMachine.Update();
         }
 
