@@ -1,5 +1,4 @@
-﻿using System;
-using Player.PlayerInput;
+﻿using Player.PlayerInput;
 using Player.StateMachine;
 using UnityEngine;
 
